@@ -1,10 +1,14 @@
 package com.esliceu.oauthProject.Controller;
 
+import com.esliceu.oauthProject.Services.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class LoginController {
+    @Autowired
+    LoginService loginService;
     @GetMapping("/")
     public String index(){
         return "index";
@@ -12,6 +16,7 @@ public class LoginController {
 
     @GetMapping("/logingoogle")
     public String logingoogle(){
-        return "redirect:https://accounts.google.com/o/oauth2/v2/auth";
+
+        return "redirect:" + loginService.getGoogleRedirection();
     }
 }
