@@ -13,7 +13,6 @@ public class LoginService {
     @Value("${redirect-uri}")
     String redirecturi;
     public String getGoogleRedirection() throws Exception{
-        //https://accounts.google.com/o/oauth2/v2/auth
         URIBuilder b = new URIBuilder("https://accounts.google.com/o/oauth2/v2/auth");
         b.addParameter("client_id", clientId);
         b.addParameter("redirect_uri", redirecturi);

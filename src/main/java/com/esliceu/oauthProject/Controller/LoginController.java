@@ -15,7 +15,7 @@ public class LoginController {
     }
 
     @GetMapping("/logingoogle")
-    public String logingoogle(){
+    public String logingoogle() throws Exception {
 
         return "redirect:" + loginService.getGoogleRedirection();
     }
