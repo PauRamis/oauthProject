@@ -68,7 +68,7 @@ public class LoginService {
         System.out.println(resp);
         Map<String, String> map2 = new Gson()
                 .fromJson(resp, HashMap.class);
-        return map2.get("email")x;
+        return map2.get("email");
     }
 
     private String doGet(URL url) throws Exception{
