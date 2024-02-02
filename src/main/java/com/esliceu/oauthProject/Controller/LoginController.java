@@ -1,5 +1,6 @@
 package com.esliceu.oauthProject.Controller;
 
+import com.esliceu.oauthProject.Services.LoginDiscordService;
 import com.esliceu.oauthProject.Services.LoginMicrosoftService;
 import com.esliceu.oauthProject.Services.LoginService;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +17,9 @@ public class LoginController {
 
     @Autowired
     LoginMicrosoftService loginMicrosoftService;
+
+    @Autowired
+    LoginDiscordService loginDiscordService;
 
     @GetMapping("/")
     public String index(){
@@ -47,6 +51,12 @@ public class LoginController {
     @GetMapping("/loginmicrosoft")
     public String loginmicrosoft() throws Exception {
         return "redirect:" + loginMicrosoftService.getMicrososftRedirection();
+    }
+
+    //Discord
+    @GetMapping("/logindiscord")
+    public String logindiscord() throws Exception{
+        return "redirect:" + loginDiscordService.getDiscordRedirection();
     }
 
 
