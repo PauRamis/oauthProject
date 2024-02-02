@@ -4,6 +4,10 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class LoginService {
     @Value("${client-id}")
@@ -30,13 +34,14 @@ public class LoginService {
     }
 
     public String getGoogleUserEmail(String code) throws Exception{
-        URIBuilder b = new URIBuilder("https://oauth2.googleapis.com/token");
-        b.addParameter("client_id", clientId);
-        b.addParameter("redirect_uri", redirecturi);
-        b.addParameter("code", code);
-        b.addParameter("client_secret", clientSecret);
-        b.addParameter("grant_type", "authorization_code");
+        URL url = new URL("https://oauth2.googleapis.com/token");
+        Map<String, String > parameters = new HashMap<>();
+        parameters.put("client_id", clientId);
+        parameters.put("redirect_uri", redirecturi);
+        parameters.put("code", code);
+        parameters.put("client_secret", clientSecret);
+        parameters.put("grant_type", "authorization_code");
 
-
+        String result = doPost(url, parameters);
     }
 }
