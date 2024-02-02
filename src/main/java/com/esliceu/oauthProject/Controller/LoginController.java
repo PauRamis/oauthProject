@@ -4,6 +4,7 @@ import com.esliceu.oauthProject.Services.LoginService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,8 +31,10 @@ public class LoginController {
     }
 
     @GetMapping("/success")
-    public String successController(HttpSession session){
-        if (session.getAttribute("email") == null) return "error";
+    public String successController(HttpSession session, Model model){
+        String email = (String) session.getAttribute("email");
+        if (email == null) return "error";
+        model.addAttribute("email", email);
         return "success";
     }
 }

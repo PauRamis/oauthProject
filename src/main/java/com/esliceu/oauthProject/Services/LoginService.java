@@ -65,7 +65,10 @@ public class LoginService {
         b.addParameter("alt", "json");
         String resp = doGet(b.build().toURL());
         System.out.println(result); //No sout
-        return null;
+        System.out.println(resp);
+        Map<String, String> map2 = new Gson()
+                .fromJson(resp, HashMap.class);
+        return map2.get("email")x;
     }
 
     private String doGet(URL url) throws Exception{
