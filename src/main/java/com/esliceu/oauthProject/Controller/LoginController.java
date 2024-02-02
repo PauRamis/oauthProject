@@ -23,7 +23,7 @@ public class LoginController {
     }
 
     @GetMapping("/oauth2/callback")
-    public String googleCombecack(@RequestParam String code, HttpSession session){
+    public String googleCombecack(@RequestParam String code, HttpSession session) throws Exception{
         String email = loginService.getGoogleUserEmail(code);
         session.setAttribute("email", email);
         return "redirect:/success";

@@ -1,9 +1,12 @@
 package com.esliceu.oauthProject.Services;
 
+import com.google.gson.Gson;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -53,10 +56,26 @@ public class LoginService {
         parameters.put("code", code);
         parameters.put("client_secret", clientSecret);
         parameters.put("grant_type", "authorization_code");
-
         String result = doPost(url, parameters);
-        System.out.println(result);
+        Map<String, String> map = new Gson()
+                .fromJson(result, HashMap.class);
+        String access_token = map.get("access_token");
+        URIBuilder b = new URIBuilder("https://www.googleapis.com/oauth2/v1/userinfo");
+        b.addParameter("access_token", access_token);
+        b.addParameter("alt", "json");
+        String resp = doGet(b.build().toURL());
+        System.out.println(result); //No sout
         return null;
+    }
+
+    private String doGet(URL url) throws Exception{
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet get = new HttpGet(url.toString());
+        CloseableHttpResponse response = httpClient.execute(get);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+            return EntityUtils.toString(response.getEntity());
+        }
+        throw new RuntimeException("Error in response");
     }
 
     private String doPost(URL url, Map<String, String> parameters) throws Exception {
