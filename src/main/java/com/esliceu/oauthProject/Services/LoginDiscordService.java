@@ -23,10 +23,10 @@ public class LoginDiscordService {
         b.addParameter("client_id", clientId);
         b.addParameter("redirect_uri", redirecturi);
         b.addParameter("scope", "email");
-        /*b.addParameter("access_type", "offline");
+        b.addParameter("access_type", "offline");
         b.addParameter("state", "state_parameter_passthrough_value");
         b.addParameter("response_type", "code");
-        b.addParameter("prompt", "select_account");*/
+        b.addParameter("prompt", "select_account");
         return b.build().toURL().toString();
     }
 }

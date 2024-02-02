@@ -47,17 +47,19 @@ public class LoginController {
         return "success";
     }
 
-    //Microsoft
-    @GetMapping("/loginmicrosoft")
-    public String loginmicrosoft() throws Exception {
-        return "redirect:" + loginMicrosoftService.getMicrososftRedirection();
-    }
-
     //Discord
     @GetMapping("/logindiscord")
     public String logindiscord() throws Exception{
         return "redirect:" + loginDiscordService.getDiscordRedirection();
     }
 
+    /*@GetMapping("/oauth2/callback")
+    public String discordCombecack(@RequestParam String code, HttpSession session) throws Exception{
+        System.out.println("Code:");
+        System.out.println(code);
+        /*String email = loginService.getGoogleUserEmail(code);
+        session.setAttribute("email", email);
+        return "redirect:/success";
+    }*/
 
 }
