@@ -1,11 +1,23 @@
 package com.esliceu.oauthProject.Services;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -43,5 +55,22 @@ public class LoginService {
         parameters.put("grant_type", "authorization_code");
 
         String result = doPost(url, parameters);
+        System.out.println(result);
+        return null;
+    }
+
+    private String doPost(URL url, Map<String, String> parameters) throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost post = new HttpPost(url.toString());
+        List<NameValuePair> nvps = new ArrayList<>();
+        for (String s: parameters.keySet()) {
+            nvps.add(new BasicNameValuePair(s, parameters.get(s)));
+        }
+        post.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response = httpClient.execute(post);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            return EntityUtils.toString(response.getEntity());
+        }
+        throw new RuntimeException("Error in response");
     }
 }
