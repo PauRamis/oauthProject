@@ -45,7 +45,6 @@ public class LoginService {
         b.addParameter("response_type", "code");
         b.addParameter("prompt", "select_account");
         return b.build().toURL().toString();
-
     }
 
     public String getGoogleUserEmail(String code) throws Exception{
