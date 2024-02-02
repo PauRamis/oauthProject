@@ -1,5 +1,6 @@
 package com.esliceu.oauthProject.Controller;
 
+import com.esliceu.oauthProject.Services.LoginMicrosoftService;
 import com.esliceu.oauthProject.Services.LoginService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
     @Autowired
     LoginService loginService;
+
+    @Autowired
+    LoginMicrosoftService loginMicrosoftService;
+
     @GetMapping("/")
     public String index(){
         return "index";
     }
 
+    //Google
     @GetMapping("/logingoogle")
     public String logingoogle() throws Exception {
-
         return "redirect:" + loginService.getGoogleRedirection();
     }
 
@@ -37,4 +42,12 @@ public class LoginController {
         model.addAttribute("email", email);
         return "success";
     }
+
+    //Microsoft
+    @GetMapping("/loginmicrosoft")
+    public String loginmicrosoft() throws Exception {
+        return "redirect:" + loginMicrosoftService.getMicrososftRedirection();
+    }
+
+
 }
