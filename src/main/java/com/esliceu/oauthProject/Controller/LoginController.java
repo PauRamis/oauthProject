@@ -39,14 +39,6 @@ public class LoginController {
         return "redirect:/success";
     }
 
-    @GetMapping("/success")
-    public String successController(HttpSession session, Model model){
-        String email = (String) session.getAttribute("email");
-        if (email == null) return "error";
-        model.addAttribute("email", email);
-        return "success";
-    }
-
     //Discord
     @GetMapping("/logindiscord")
     public String logindiscord() throws Exception{
@@ -60,14 +52,12 @@ public class LoginController {
         return "redirect:/success";
     }
 
-
-    /*@GetMapping("/oauth2/callback")
-    public String discordCombecack(@RequestParam String code, HttpSession session) throws Exception{
-        System.out.println("Code:");
-        System.out.println(code);
-        /*String email = loginService.getGoogleUserEmail(code);
-        session.setAttribute("email", email);
-        return "redirect:/success";
-    }*/
-
+    //Success
+    @GetMapping("/success")
+    public String successController(HttpSession session, Model model){
+        String email = (String) session.getAttribute("email");
+        if (email == null) return "error";
+        model.addAttribute("email", email);
+        return "success";
+    }
 }
