@@ -9,7 +9,7 @@ public class LoginDiscordService {
     @Value("1203028398176215091")
     String clientId;
 
-    @Value("${redirect-uri}")
+    @Value("http://localhost:8080/discord/callback")
     String redirecturi;
 
     @Value("r90nytEcrI4qnlghnm9JifKlysaD6mKk")
@@ -22,11 +22,17 @@ public class LoginDiscordService {
         URIBuilder b = new URIBuilder("https://discord.com/oauth2/authorize");
         b.addParameter("client_id", clientId);
         b.addParameter("redirect_uri", redirecturi);
-        b.addParameter("scope", "email");
+        b.addParameter("scope", "identify email");
         b.addParameter("access_type", "offline");
         b.addParameter("state", "state_parameter_passthrough_value");
         b.addParameter("response_type", "code");
         b.addParameter("prompt", "select_account");
         return b.build().toURL().toString();
+    }
+
+    public String getDiscordUserEmail(String code) throws Exception{
+        System.out.println("getDiscordUserEmail");
+        System.out.println(code.toString());
+        return null;
     }
 }

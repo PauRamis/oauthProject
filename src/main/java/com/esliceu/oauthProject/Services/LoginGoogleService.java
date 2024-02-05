@@ -3,7 +3,6 @@ package com.esliceu.oauthProject.Services;
 import com.google.gson.Gson;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -16,7 +15,6 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class LoginService {
+public class LoginGoogleService {
     @Value("${client-id}")
     String clientId;
 
