@@ -61,7 +61,7 @@ public class LoginGoogleService {
         b.addParameter("access_token", access_token);
         b.addParameter("alt", "json");
         String resp = doGet(b.build().toURL());
-        System.out.println(result); //No sout
+        System.out.println(result);
         System.out.println(resp);
         Map<String, String> map2 = new Gson()
                 .fromJson(resp, HashMap.class);

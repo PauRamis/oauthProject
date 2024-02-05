@@ -55,19 +55,15 @@ public class LoginDiscordService {
         parameters.put("code", code);
         parameters.put("client_secret", clientSecret);
         parameters.put("grant_type", "authorization_code");
-
         String result = doPost(url, parameters);
-
         Map<String, String> map = new Gson()
                 .fromJson(result, HashMap.class);
         String accessToken = map.get("access_token");
-
         URIBuilder userInfoBuilder = new URIBuilder("https://discord.com/api/users/@me");
         String userInfoResponse = doGet(userInfoBuilder.setParameters(List.of(new BasicNameValuePair("Authorization", "Bearer " + accessToken))).build().toURL());
-
         Map<String, String> userInfoMap = new Gson()
                 .fromJson(userInfoResponse, HashMap.class);
-
+        System.out.println(result);
         return userInfoMap.get("email");
     }
 
@@ -76,10 +72,15 @@ public class LoginDiscordService {
         HttpGet get = new HttpGet(url.toString());
         CloseableHttpResponse response = httpClient.execute(get);
 
-        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+        int statusCode = response.getStatusLine().getStatusCode();
+        System.out.println("Status Code: " + statusCode);
+
+        if (statusCode == HttpStatus.SC_OK) {
             return EntityUtils.toString(response.getEntity());
+        } else {
+            System.out.println("Error Response: " + EntityUtils.toString(response.getEntity()));
+            throw new RuntimeException("Error in response");
         }
-        throw new RuntimeException("Error in response");
     }
 
     private String doPost(URL url, Map<String, String> parameters) throws Exception {
